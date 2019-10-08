@@ -2,21 +2,85 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
+a,a:hover {
+  text-decoration: none;
+  color: black;
+}
+#title{
+  margin-top:20px;
+  color:rgb(32, 190, 177);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.main {
+  background-color: rgb(32, 190, 177);
+  color: white;
+  width: 80%;
+  border-radius: 20px;
+  margin: auto;
+  margin-top: 30px;
+}
+
+.form-group {
+  margin-bottom: 2rem;
+  padding-top: 10px;
+}
+
+#exampleEmail {
+  width: 40%;
+  text-align: center;
+  margin: auto;
+  box-shadow: 3px 5px;
+}
+
+#examplePassword {
+  width: 40%;
+  text-align: center;
+  margin: auto;
+  box-shadow: 3px 5px;
+}
+
+#btn_form{
+  margin-bottom: 10px;
+  background-color: white;
+  box-shadow: 5px 5px rgb(21, 121, 112);
+  border: rgb(32, 190, 177);
+}
+
+#btn_form a{
+  color: rgb(32, 190, 177);
+}
+
+#btn_form a:hover{
   color: white;
 }
 
-.App-link {
-  color: #09d3ac;
+#btn_form:hover{
+  margin-bottom: 10px;
+  background-color: rgb(137, 221, 214);
+  box-shadow: 5px 5px rgb(62, 112, 108);
+  
+  border: rgb(32, 190, 177);
+}
+
+#navbar_contain a{
+  color: white;
+}
+#navbar_contain_atual a{
+  color: rgb(137, 221, 214);
+}
+
+
+
+@media only screen and (max-width: 700px) {
+  #exampleEmail {
+    width: 60%;
+    text-align: center;
+    margin: auto;
+  }
+  
+  #examplePassword {
+    width: 60%;
+    text-align: center;
+    margin: auto;
+  }
 }
