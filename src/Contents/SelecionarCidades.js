@@ -21,8 +21,8 @@ export default class Cidades extends Component {
       itens: [],
       graph: false,
       arrayInformaAPI: '',
-      dataGraph:[],
-      labelCidade:[]
+      dataGraph: null,
+      labelCidade: null
     }
   }
 
@@ -46,11 +46,15 @@ export default class Cidades extends Component {
       headers: { "Content-Type": "application/json" }
     }).then((response) => response.json())
       .then((rows) => {
-        this.setState({
-          arrayInformaAPI: rows,
-          
-        })
-        this.ApiChart();
+        if (rows.erro) {
+          alert('Cidade não encontrada');
+        } else {
+          this.setState({
+            arrayInformaAPI: rows,
+          })
+          this.ApiChart();
+        }
+
       }, 500);
 
     this.limpardados2();
@@ -58,8 +62,8 @@ export default class Cidades extends Component {
 
 
   ApiChart = () => {
-    let arrayTempo=[];
-    let arrayLabel=[];
+    let arrayTempo = [];
+    let arrayLabel = [];
     for (let j = 0; j < this.state.arrayInformaAPI.cidade.length; j++) {
 
       console.log(this.state.arrayInformaAPI.cidade[j]);
@@ -75,11 +79,11 @@ export default class Cidades extends Component {
 
     const timer = setTimeout(() => {
       this.setState({
-          dataGraph:arrayTempo,
-          labelCidade:arrayLabel,
-          graph: true
+        dataGraph: arrayTempo,
+        labelCidade: arrayLabel,
+        graph: true
       })
-    },500);
+    }, 500);
 
   }
 
@@ -161,7 +165,7 @@ export default class Cidades extends Component {
     //   <input key={index} type='text' name={'test' + '' + number + ''} onChange={this.onChangeInput} />
     // );
 
-    if (this.state.graph == false) {
+    if (this.state.labelCidade != null && this.state.dataGraph != null) {
       return (
         <div>
 
@@ -173,37 +177,50 @@ export default class Cidades extends Component {
             <input type='text' name={'test4'} value={this.state.test4} onChange={this.onChangeInput} />
             <input type='text' name={'test5'} value={this.state.test5} onChange={this.onChangeInput} />
             <input type='text' name={'test6'} value={this.state.test6} onChange={this.onChangeInput} />
-            <button type='submit' > Pesquisar </button>
-            <button type='reset' > Limpar </button>
-          </form>
+            <Button type='submit' > Pesquisar </Button>
 
+          </form>
+          <div className="chart">
+            <Bar
+           
+              data={{
+                labels: this.state.labelCidade,
+                datasets: [{
+                  label: "ºC",
+                  backgroundColor: 'rgb(255, 99, 132)',
+                  borderColor: 'rgb(255, 99, 132)',
+                  data: this.state.dataGraph,
+                }]
+              }}
+              options={{
+                title: {
+                  display: this.props.displayTitle,
+                  text: 'Meteorologia ',
+                  fontSize: 25
+                },
+
+              }}
+            />
+
+
+          </div>
         </div>
       )
     } else {
       return (
+        <div>
 
-        <div className="chart">
-          <Bar
-            data={{
-              labels: this.state.labelCidade,
-              datasets: [{
-                label: "Meteo",
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
-                data: this.state.dataGraph,
-              }]
-            }}
-            options={{
-              title: {
-                display: this.props.displayTitle,
-                text: 'Meteorologia ',
-                fontSize: 25
-              },
+          <form onSubmit={this.newSubmit}>
+            {/* {listItems} */}
+            <input type='text' name={'test1'} value={this.state.test1} onChange={this.onChangeInput} />
+            <input type='text' name={'test2'} value={this.state.test2} onChange={this.onChangeInput} />
+            <input type='text' name={'test3'} value={this.state.test3} onChange={this.onChangeInput} />
+            <input type='text' name={'test4'} value={this.state.test4} onChange={this.onChangeInput} />
+            <input type='text' name={'test5'} value={this.state.test5} onChange={this.onChangeInput} />
+            <input type='text' name={'test6'} value={this.state.test6} onChange={this.onChangeInput} />
+            <Button type='submit' > Pesquisar </Button>
 
-            }}
-          />
-
-
+          </form>
         </div>
       );
     }

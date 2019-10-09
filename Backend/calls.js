@@ -11,6 +11,7 @@ app.use(cors());
 exports.temperatura = function (req, res) {
     var city = req.body.cidade;
     var i=0,j=0;
+    var verifica=0;
     var arrayTempo=[];
     for(i=0;i<city.length;i++){
         console.log(city[i]);
@@ -18,18 +19,29 @@ exports.temperatura = function (req, res) {
         request('http://api.openweathermap.org/data/2.5/weather?q=' + city[i] + '&units=metric&appid=74bf24768501a41ba7a1d66c2054a799', { json: true }, (err, res, body) => {
         //request('http://api.openweathermap.org/data/2.5/weather?q=Porto&units=metric&appid=74bf24768501a41ba7a1d66c2054a799', { json: true }, (err, res, body) => {  
         if (err) {
-            return callback(err);
-        } else {
             
-            arrayTempo.push(body.main.temp);
-            //res.send(body);
+            return callback(err);
+           
+        } else {
+            if(!body.main){
+                return verifica=1;
+            }else{
+                arrayTempo.push(body.main.temp);
+            }
+            
+            
         }
     });
     }
 
     const timer = setTimeout(() => {
-        console.log(arrayTempo);
-        res.send({tempo:arrayTempo,cidade:city})
+        if(verifica==1){
+            res.send({erro:'Cidade não existe'})
+        }else{
+            console.log(arrayTempo);
+            res.send({tempo:arrayTempo,cidade:city})
+        }
+        
       }, 400);
     
     
