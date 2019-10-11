@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, ButtonGroup } from 'reactstrap';
+import { Button, ButtonGroup, Table } from 'reactstrap';
 import { Bar, Line, Pie } from 'react-chartjs-2';
 
 export default class Cidades extends Component {
@@ -22,7 +22,10 @@ export default class Cidades extends Component {
       graph: false,
       arrayInformaAPI: '',
       dataGraph: null,
-      labelCidade: null
+      labelCidade: null,
+      sunsethour: null,
+      sunrisehour: null,
+      tempoCity:null
     }
   }
 
@@ -38,7 +41,7 @@ export default class Cidades extends Component {
     var dadosapi;
     console.log(this.state.arr2);
 
-    fetch('http://192.168.42.47:8080/api/tempo', {
+    fetch('http://localhost:8080/api/tempo', {
       method: 'POST',
       body: JSON.stringify({
         cidade: this.state.arr2
@@ -55,7 +58,7 @@ export default class Cidades extends Component {
           this.ApiChart();
         }
 
-      }, 500);
+      }, 1000);
 
     this.limpardados2();
   }
@@ -64,10 +67,17 @@ export default class Cidades extends Component {
   ApiChart = () => {
     let arrayTempo = [];
     let arrayLabel = [];
+    let arraySunset = [];
+    let arraySunrise = [];
+    let newArr=[];
+
+    console.log(this.state.arrayInformaAPI)
+
     for (let j = 0; j < this.state.arrayInformaAPI.cidade.length; j++) {
 
       console.log(this.state.arrayInformaAPI.cidade[j]);
       arrayLabel.push(this.state.arrayInformaAPI.cidade[j]);
+      newArr.push(this.state.arrayInformaAPI.cidade[j],this.state.arrayInformaAPI.tempo[j])
     }
 
 
@@ -77,11 +87,26 @@ export default class Cidades extends Component {
 
     }
 
+
+    for (let j = 0; j < this.state.arrayInformaAPI.horassunrise.length; j++) {
+      console.log(this.state.arrayInformaAPI.horassunrise[j]);
+      arraySunrise.push(this.state.arrayInformaAPI.horassunrise[j]);
+    }
+
+    for (let j = 0; j < this.state.arrayInformaAPI.horassunset.length; j++) {
+      console.log(this.state.arrayInformaAPI.horassunset[j]);
+      arraySunset.push(this.state.arrayInformaAPI.horassunset[j]);
+    }
+
+
     const timer = setTimeout(() => {
       this.setState({
         dataGraph: arrayTempo,
         labelCidade: arrayLabel,
-        graph: true
+        graph: true,
+        sunsethour: arraySunset,
+        sunrisehour: arraySunrise,
+        tempoCity:newArr,
       })
     }, 500);
 
@@ -157,6 +182,39 @@ export default class Cidades extends Component {
 
 
 
+  OrdenarFunc = () => {
+    console.log(this.state.tempoCity)
+    // let convertar=this.state.dataGraph;
+    // convertar.sort();
+    // let novoArray,novalabel;
+    // for(let i=0;i<this.state.tempoCity.length;i++){
+      
+    //   console.log(this.state.tempoCity[i])
+    //   if(this.state.tempoCity[i]==convertar[i]){
+    //     novalabel=this.state.tempoCity[i-1];
+    //     novoArray.push(novalabel);
+        
+    //   }
+    // }
+    const timer = setTimeout(() => {
+      this.setState({
+        dataGraph:null,
+        //labelCidade:novoArray
+      });
+    }, 500);
+    this.mudarGraph();
+  }
+
+  mudarGraph = () => {
+    
+    let arrayCerto = this.state.dataGraph;
+    arrayCerto.sort();
+    const timer = setTimeout(() => {
+      this.setState({
+        dataGraph: arrayCerto
+      });
+    }, 500);
+  }
 
   render() {
 
@@ -165,7 +223,21 @@ export default class Cidades extends Component {
     //   <input key={index} type='text' name={'test' + '' + number + ''} onChange={this.onChangeInput} />
     // );
 
-    if (this.state.labelCidade != null && this.state.dataGraph != null) {
+
+
+
+    if (this.state.labelCidade != null && this.state.dataGraph != null && this.state.sunrisehour != null && this.state.sunsethour != null) {
+
+
+      const numbers = this.state.sunrisehour;
+      const listar_horas = numbers.map((number, index) =>
+        <td key={index}>{number}</td>
+      );
+
+      const numbers2 = this.state.sunsethour;
+      const listar_horassunset = numbers2.map((number, index) =>
+        <td key={index}>{number}</td>
+      );
       return (
         <div>
 
@@ -180,9 +252,10 @@ export default class Cidades extends Component {
             <Button type='submit' > Pesquisar </Button>
 
           </form>
+          <Button type='submit' onClick={this.OrdenarFunc} > Ordenar Temperatura </Button>
           <div className="chart">
             <Bar
-           
+
               data={{
                 labels: this.state.labelCidade,
                 datasets: [{
@@ -204,9 +277,28 @@ export default class Cidades extends Component {
 
 
           </div>
+
+          <Table>
+            <thead>
+              <tr>
+                <th>Hora do nascer do sol</th>
+                {listar_horas}
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>Hora do pôr do sol</th>
+                {listar_horassunset}
+              </tr>
+
+
+            </tbody>
+          </Table>
         </div>
       )
     } else {
+
       return (
         <div>
 

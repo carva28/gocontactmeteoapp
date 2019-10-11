@@ -22,7 +22,7 @@ export default class NavBar extends React.Component {
         return (
             <div>
                 <Navbar color="dark"  dark>
-                    <NavbarBrand href="/" className="mr-auto">MeteoGoContact</NavbarBrand>
+                    <NavbarBrand href="/home" className="mr-auto">MeteoGoContact</NavbarBrand>
                     <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
                     <Collapse isOpen={!this.state.collapsed} navbar>
                         <Nav navbar >
