@@ -3,14 +3,9 @@
 
 
 [ {
-  "IndicadorCod" : "0008069",
-  "IndicadorDsg" : "Cidades (N.º) por Localização geográfica (NUTS - 2013); Anual - INE, Sistema integrado de nomenclaturas estatísticas",
-  "MetaInfUrl" : "https://www.ine.pt/bddXplorer/htdocs/minfo.jsp?var_cd=0008069&lingua=PT",
-  "DataExtracao" : "2019-10-09T11:34:58.439+01:00",
-  "DataUltimoAtualizacao" : "2019-04-24",
-  "UltimoPref" : "2018",
-  "Dados" : {
-    "2018" : [ {
+  
+  "dados" : {
+    "cidades" : [ {
       "geocod" : "2004206",
       "geodsg" : "Vila Franca do Campo",
       "valor" : "0"

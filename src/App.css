@@ -2,13 +2,14 @@
   text-align: center;
 }
 
-a,a:hover {
+a, a:hover {
   text-decoration: none;
   color: black;
 }
-#title{
-  margin-top:20px;
-  color:rgb(32, 190, 177);
+
+#title {
+  margin-top: 20px;
+  color: rgb(32, 190, 177);
 }
 
 .main {
@@ -39,36 +40,68 @@ a,a:hover {
   box-shadow: 3px 5px;
 }
 
-#btn_form{
+#btn_form {
   margin-bottom: 10px;
   background-color: white;
   box-shadow: 5px 5px rgb(21, 121, 112);
   border: rgb(32, 190, 177);
 }
 
-#btn_form a{
+#btn_form a {
   color: rgb(32, 190, 177);
 }
 
-#btn_form a:hover{
+#btn_form a:hover {
   color: white;
 }
 
-#btn_form:hover{
+#btn_form:hover {
   margin-bottom: 10px;
   background-color: rgb(137, 221, 214);
   box-shadow: 5px 5px rgb(62, 112, 108);
-  
   border: rgb(32, 190, 177);
 }
 
-#navbar_contain a{
+#navbar_contain a {
   color: white;
 }
-#navbar_contain_atual a{
+
+#navbar_contain_atual a {
   color: rgb(137, 221, 214);
 }
 
+
+
+.input-group {
+  width: 50%;
+  margin: auto;
+  height: 60px;
+  margin-top:20px;
+}
+
+.form-control{
+  height: calc(2.5em + 0.75rem + 8px);
+}
+
+.btn-secondary{
+  background-color: rgb(62, 112, 108);
+  margin-top:20px;
+  width: 20%;
+  border:none;
+  padding: 1.2rem 0.75rem;
+}
+
+.btn-secondary:hover{
+  color: #fff;
+  background-color: #5a6268;
+}
+
+.card-img-top {
+  width: 50%;
+  border-top-left-radius: calc(0.25rem - 1px);
+  border-top-right-radius: calc(0.25rem - 1px);
+  margin: auto;
+}
 
 
 @media only screen and (max-width: 700px) {
@@ -77,10 +110,16 @@ a,a:hover {
     text-align: center;
     margin: auto;
   }
-  
   #examplePassword {
     width: 60%;
     text-align: center;
     margin: auto;
+  }
+  .btn-secondary{
+    width: 60%;
+    border:none;
+  }
+  .btn-secondary:hover{
+    color: #fff;
   }
 }
