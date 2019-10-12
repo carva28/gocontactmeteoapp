@@ -57,8 +57,8 @@ export default class Formulario extends Component {
                     <h2 id="title">Meteorologia</h2>
                     <FormGroup className="main">
                         <FormGroup >
-                            <Label for="exampleEmail">Email</Label>
-                            <Input type="email" name="email" id="exampleEmail" value={this.state.nome_user} placeholder="Coloque o sue email" onChange={this.handleChange} />
+                            <Label for="exampleEmail">Username</Label>
+                            <Input type="email" name="email" id="exampleEmail" value={this.state.nome_user} placeholder="Coloque o sue username" onChange={this.handleChange} />
                         </FormGroup>
 
                         <FormGroup>
