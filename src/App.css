@@ -30,14 +30,14 @@ a, a:hover {
   width: 40%;
   text-align: center;
   margin: auto;
-  box-shadow: 3px 5px;
+  border:2px solid rgb(82, 82, 82);
 }
 
 #examplePassword {
   width: 40%;
   text-align: center;
   margin: auto;
-  box-shadow: 3px 5px;
+  border:2px solid rgb(82, 82, 82);
 }
 
 #btn_form {
@@ -70,39 +70,119 @@ a, a:hover {
   color: rgb(137, 221, 214);
 }
 
-
-
 .input-group {
   width: 50%;
   margin: auto;
   height: 60px;
-  margin-top:20px;
+  margin-top: 20px;
 }
 
-.form-control{
+.form-control {
   height: calc(2.5em + 0.75rem + 8px);
 }
 
-.btn-secondary{
+.btn-secondary {
   background-color: rgb(62, 112, 108);
-  margin-top:20px;
+  margin-top: 20px;
   width: 20%;
-  border:none;
+  border: none;
   padding: 1.2rem 0.75rem;
 }
 
-.btn-secondary:hover{
+.btn-secondary:hover {
   color: #fff;
   background-color: #5a6268;
 }
 
-.card-img-top {
-  width: 50%;
-  border-top-left-radius: calc(0.25rem - 1px);
-  border-top-right-radius: calc(0.25rem - 1px);
-  margin: auto;
+#btn_ordenar {
+  margin-left: 40px;
+  background-color: #39b6ad;
 }
 
+#btn_ordenar:hover {
+  -webkit-animation-name: example;
+  /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 2s;
+  /* Safari 4.0 - 8.0 */
+  animation-name: example;
+  animation-duration: 2s;
+  -webkit-transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in-out;
+}
+
+#btn_inserir_novo {
+  color: #fff;
+  background-color: #5a6268;
+}
+
+#btn_inserir_novo:hover {
+  -webkit-animation-name: example2;
+  /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 2s;
+  /* Safari 4.0 - 8.0 */
+  animation-name: example2;
+  animation-duration: 2s;
+  -webkit-transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in-out;
+}
+
+@-webkit-keyframes example2 {
+  from {
+    width: 20%;
+    background-color: #5a6268;
+    margin-top: 20px;
+  }
+  to {
+    margin-top: 0px;
+    width: 15%;
+    background-color: #e6697a;
+  }
+}
+
+/* Standard syntax */
+
+@keyframes example2 {
+  from {
+    width: 20%;
+    background-color: #5a6268;
+    margin-top: 20px;
+  }
+  to {
+    width: 15%;
+    background-color: #e6697a;
+    margin-top: 0px;
+  }
+}
+
+/* Safari 4.0 - 8.0 */
+
+@-webkit-keyframes example {
+  from {
+    width: 70%;
+    background-color: #39b6ad;
+    margin-bottom: 0;
+  }
+  to {
+    width: 15%;
+    background-color: #2f9790;
+    margin-bottom: 20px;
+  }
+}
+
+/* Standard syntax */
+
+@keyframes example {
+  from {
+    width: 20%;
+    background-color: #39b6ad;
+    margin-top: 20px;
+  }
+  to {
+    width: 15%;
+    background-color: #2f7197;
+    margin-top: 0px;
+  }
+}
 
 @media only screen and (max-width: 700px) {
   #exampleEmail {
@@ -115,11 +195,11 @@ a, a:hover {
     text-align: center;
     margin: auto;
   }
-  .btn-secondary{
+  .btn-secondary {
     width: 60%;
-    border:none;
+    border: none;
   }
-  .btn-secondary:hover{
+  .btn-secondary:hover {
     color: #fff;
   }
 }

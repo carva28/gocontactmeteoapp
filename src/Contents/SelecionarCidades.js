@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
-import { Button, ButtonGroup, Table, InputGroup, InputGroupAddon, Input, Card, CardImg, CardBody, Container, Row, Col } from 'reactstrap';
+import { Button, Table, InputGroup, InputGroupAddon, Input } from 'reactstrap';
 import { Bar, Line, Pie } from 'react-chartjs-2';
-import Autocomplete from 'react-autocomplete';
 
 export default class Cidades extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      value: "",
       name: '',
       test1: '',
       test2: '',
@@ -28,93 +26,21 @@ export default class Cidades extends Component {
       sunsethour: null,
       sunrisehour: null,
       tempoCity: null,
-      autocompleteData: []
-
+      displayForm: 'none',
+      displayGraphContent: 'none'
     }
-    this.onChange = this.onChange.bind(this);
-    this.onSelect = this.onSelect.bind(this);
-    this.getItemValue = this.getItemValue.bind(this);
-    this.renderItem = this.renderItem.bind(this);
-    this.retrieveDataAsynchronously = this.retrieveDataAsynchronously.bind(this);
-
   }
 
-  retrieveDataAsynchronously(searchText) {
-    let _this = this;
 
-    // Url of your website that process the data and returns a
-    let url = `http://localhost:8080/api/distritos`;
-
-    // Configure a basic AJAX request to your server side API
-    // that returns the data according to the sent text
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
-    xhr.responseType = 'json';
-    xhr.onload = () => {
-      let status = xhr.status;
-
-      if (status == 200) {
-        // Show response of your server in the console
-        for(let i=0;i<xhr.response[0].dados.cidades.length;i++){
-          if(searchText.charAt(0)===xhr.response[0].dados.cidades[i].geodsg.charAt()){
-            console.log(xhr.response[0].dados.cidades[i].geodsg);
-            if(searchText.includes(xhr.response[0].dados.cidades[i].geodsg)){
-              _this.setState({
-                autocompleteData: xhr.response
-              });
-            }
-          }
-
-        }
-        
-      } else {
-        console.error("Cannot load data from remote source");
-      }
-    };
-
-    xhr.send();
+  static defaultProps = {
+    displayTitle: true,
+    displayLegend: true,
+    legendPosition: 'right',
+    location: 'City'
   }
-
-  onChange(e) {
-    this.setState({
-      value: e.target.value
-    });
-    this.retrieveDataAsynchronously(e.target.value);
-    console.log("The Input Text has changed to ", e.target.value);
-  }
-  onSelect(val) {
-    this.setState({
-      value: val
-    });
-
-    console.log("Option from 'database' selected : ", val);
-  }
-
-  renderItem(item, isHighlighted) {
-    return (
-      <div style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
-        {item.label}
-      </div>
-    );
-  }
-
-  getItemValue(item) {
-    // You can obviously only return the Label or the component you need to show
-    // In this case we are going to show the value and the label that shows in the input
-    // something like "1 - Microsoft"
-    return `${item.value} - ${item.label}`;
-  }
-
-  // static defaultProps = {
-  //   displayTitle: true,
-  //   displayLegend: true,
-  //   legendPosition: 'right',
-  //   location: 'City'
-  // }
 
   selecionarCidades = () => {
     var dadosapi;
-    console.log(this.state.arr2);
 
     fetch('http://localhost:8080/api/tempo', {
       method: 'POST',
@@ -146,30 +72,26 @@ export default class Cidades extends Component {
     let arraySunrise = [];
     let newArr = [];
 
-    console.log(this.state.arrayInformaAPI)
+    console.log(this.state.arrayInformaAPI)//log que apresenta api com os resultados
 
     for (let j = 0; j < this.state.arrayInformaAPI.cidade.length; j++) {
 
-      console.log(this.state.arrayInformaAPI.cidade[j]);
       arrayLabel.push(this.state.arrayInformaAPI.cidade[j]);
       newArr.push(this.state.arrayInformaAPI.cidade[j], this.state.arrayInformaAPI.tempo[j])
     }
 
 
     for (let j = 0; j < this.state.arrayInformaAPI.tempo.length; j++) {
-      console.log(this.state.arrayInformaAPI.tempo[j]);
       arrayTempo.push(this.state.arrayInformaAPI.tempo[j]);
 
     }
 
 
     for (let j = 0; j < this.state.arrayInformaAPI.horassunrise.length; j++) {
-      console.log(this.state.arrayInformaAPI.horassunrise[j]);
       arraySunrise.push(this.state.arrayInformaAPI.horassunrise[j]);
     }
 
     for (let j = 0; j < this.state.arrayInformaAPI.horassunset.length; j++) {
-      console.log(this.state.arrayInformaAPI.horassunset[j]);
       arraySunset.push(this.state.arrayInformaAPI.horassunset[j]);
     }
 
@@ -201,6 +123,11 @@ export default class Cidades extends Component {
   newSubmit = (e) => {
     e.preventDefault();
 
+    this.setState({
+      displayForm: 'none',
+      displayGraphContent: 'block'
+    })
+
     this.state.arr.push(this.state.test1, this.state.test2, this.state.test3, this.state.test4, this.state.test5, this.state.test6)
     for (let i = 0; i <= 5; i++) {
 
@@ -214,11 +141,12 @@ export default class Cidades extends Component {
       }
     }
 
+
+
   }
 
   enviaCidades = () => {
     const timer = setTimeout(() => {
-      console.log(this.state.arr2);
       const timer = setTimeout(() => {
         this.selecionarCidades();
       }, 500);
@@ -281,6 +209,12 @@ export default class Cidades extends Component {
     }, 500);
   }
 
+  MostrarInput = () => {
+    this.setState({
+      displayForm: 'block',
+      displayGraphContent: 'none'
+    })
+  }
   render() {
 
     // const numbers = [1, 2, 3, 4, 5];
@@ -304,44 +238,51 @@ export default class Cidades extends Component {
         <td key={index}>{number}</td>
       );
 
-      // const numbers3 = this.state.tempoCity;
-      // const test = numbers3.map((number, index) => {
-      //   console.log(this.state.dataGraph[index-1])
-      //   console.log(number[index-1])
-      //   if (this.state.dataGraph[index-1] === number[index]) {
-      //     console.log(number);
-      //     return (
-      //       <input key={index} type='text' name={number[index-1]} value={number[index-1]} />
-      //     );
-      //   }
-      // }
-      //);
+      const numbers3 = this.state.arrayInformaAPI.cidade;
+      const listar_cidades = numbers3.map((number, index) =>
+        <td key={index}>{number}</td>
+      );
+
+      
 
       return (
         <div>
 
-          <form onSubmit={this.newSubmit}>
-            {/* {listItems} */}
+          <form style={{ display: this.state.displayForm }} onSubmit={this.newSubmit}>
+
             <InputGroup>
               <InputGroupAddon addonType="prepend">Cidade</InputGroupAddon>
               <Input name={'test1'} value={this.state.test1} onChange={this.onChangeInput} />
+            </InputGroup>
+
+            <InputGroup>
               <InputGroupAddon addonType="prepend">Cidade</InputGroupAddon>
               <Input name={'test2'} value={this.state.test2} onChange={this.onChangeInput} />
+            </InputGroup>
+            <InputGroup>
               <InputGroupAddon addonType="prepend">Cidade</InputGroupAddon>
               <Input name={'test3'} value={this.state.test3} onChange={this.onChangeInput} />
+            </InputGroup>
+            <InputGroup>
               <InputGroupAddon addonType="prepend">Cidade</InputGroupAddon>
               <Input name={'test4'} value={this.state.test4} onChange={this.onChangeInput} />
+            </InputGroup>
+            <InputGroup>
               <InputGroupAddon addonType="prepend">Cidade</InputGroupAddon>
               <Input name={'test5'} value={this.state.test5} onChange={this.onChangeInput} />
+            </InputGroup >
+            <InputGroup>
               <InputGroupAddon addonType="prepend">Cidade</InputGroupAddon>
               <Input name={'test6'} value={this.state.test6} onChange={this.onChangeInput} />
-            </InputGroup>
+            </InputGroup >
             <Button type='submit' > Pesquisar </Button>
 
-          </form>
-          <Button type='submit' onClick={this.OrdenarFunc} > Ordenar Temperatura </Button>
+          </form >
 
-          <div className="chart">
+          <Button id="btn_inserir_novo" type='submit' onClick={this.MostrarInput}> Inserir de novo </Button>
+          <Button id="btn_ordenar" type='submit' onClick={this.OrdenarFunc} > Ordenar Temperatura </Button>
+
+          <div className="chart" style={{ display: this.state.displayGraphContent }}>
             <Bar
 
               data={{
@@ -366,15 +307,22 @@ export default class Cidades extends Component {
 
           </div>
 
-          <Table>
+          <Table >
             <thead>
               <tr>
+                <th>Cidade</th>
+                {listar_cidades}
+              </tr>
+              <tr>
                 <th>Hora do nascer do sol</th>
+
                 {listar_horas}
 
               </tr>
             </thead>
             <tbody>
+
+
               <tr>
                 <th>Hora do pôr do sol</th>
                 {listar_horassunset}
@@ -389,20 +337,14 @@ export default class Cidades extends Component {
 
       return (
         <div>
-          <Autocomplete
-            getItemValue={this.getItemValue}
-            items={this.state.autocompleteData}
-            renderItem={this.renderItem}
-            value={this.state.value}
-            onChange={this.onChange}
-            onSelect={this.onSelect}
-          />
 
           <form onSubmit={this.newSubmit}>
+
             <InputGroup>
               <InputGroupAddon addonType="prepend">Cidade</InputGroupAddon>
               <Input name={'test1'} value={this.state.test1} onChange={this.onChangeInput} />
             </InputGroup>
+
             <InputGroup>
               <InputGroupAddon addonType="prepend">Cidade</InputGroupAddon>
               <Input name={'test2'} value={this.state.test2} onChange={this.onChangeInput} />

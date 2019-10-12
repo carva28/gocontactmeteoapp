@@ -30,7 +30,7 @@ export default class NavBar extends React.Component {
                                 <Link to="/home">Temperaturas</Link>
                             </NavItem>
                             <NavItem id="navbar_contain">
-                                <Link to="/">Voltar atrás</Link>
+                                <Link to="/">Sair</Link>
                             </NavItem>
                         </Nav>
                     </Collapse>

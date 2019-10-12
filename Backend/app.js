@@ -18,6 +18,11 @@ app.get('/api/distritos', ficheiroPedidos.distrito);
 
 app.post('/api/tempo', ficheiroPedidos.temperatura);
 
+app.post('/api/registo', ficheiroPedidos.registo);
+
+app.post('/api/login', ficheiroPedidos.login);
+
+app.get('/api/users',ficheiroPedidos.todosusers);
 
 const PORT = process.env.PORT || 8080
 
