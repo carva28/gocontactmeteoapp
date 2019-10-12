@@ -23,19 +23,3 @@ Para além destas 2 tecnologias utilizou-se 2 API para informação do tempo e h
 8. Entrar na pasta do gocontactapp e executar o comando `npm start` e proceder ao login com as credenciais que preencheu.
 9. A plataforma foi desenhada para o utilizador preencher entre uma cidade a seis e de seguida pesquisar a temperatura num gráfico. Após a verificação do gráfico existe uma tabela que apresenta as horas do nascer e o pôr do sol.
 
-
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
