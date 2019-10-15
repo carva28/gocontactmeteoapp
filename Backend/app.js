@@ -3,6 +3,8 @@ const ficheiroPedidos = require('./calls');
 const bodyParser = require('body-parser');
 const app = express();
 const cors = require('cors');
+const bcrypt = require('bcrypt');
+
 app.use(cors())
 app.all('/', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
