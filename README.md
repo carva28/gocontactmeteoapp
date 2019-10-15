@@ -16,9 +16,9 @@ Para além destas 2 tecnologias utilizou-se 2 API para informação do tempo e h
 1. Descarregar do repositório ou fazer `git clone`.
 2. Por linha de comandos entrar na pasta gocontactapp `cd gocontactapp`
 3. Executar o comando `npm install` para instalar os módulos necessários para correr o programa
-4. Entrar na pasta `Backend`, através do terminal `cd Backend`.
+4. Entrar na pasta `Backend/`, através do terminal `cd Backend`.
 5. Executar o comando `npm install` para instalar os módulos necessários para o backend funcionar e de seguida utilizar o comando `nodemon app.js` para iniciar o servidor.
-6. Com o terminal, entrar na pasta do gocontactapp e executar o comando `npm start` e proceder ao login com as credenciais que preencheu.
+6. Com o terminal, entrar na pasta do gocontactapp e executar o comando `npm start`.
 7. Credências para acesso username:`admin` password:`1234`.
 8. A plataforma foi desenhada para o utilizador preencher entre uma cidade a seis e de seguida pesquisar a temperatura num gráfico. Após a verificação do gráfico existe uma tabela que apresenta as horas do nascer e o pôr do sol.
 
